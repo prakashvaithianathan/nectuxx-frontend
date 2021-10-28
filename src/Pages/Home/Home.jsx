@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "../../axios";
 
 
-import {sendProduct,deleteProduct,clearAddProduct} from '../../store/actions/product'
+import {sendProduct,deleteProduct,clearAddProduct,searchProducts} from '../../store/actions/product'
 
 const Home = () => {
   const [state, setState] = useState(null);
@@ -18,7 +18,7 @@ const Home = () => {
       });
       setState(data);
     })();
-  }, [state]);
+  }, []);
 
   const [edit, setEdit] = useState("");
 
@@ -37,15 +37,99 @@ const Home = () => {
   const clearAddData=()=>{
     dispatch(clearAddProduct(''))
   }
+
+  const [search, setSearch] = useState('')
+
+  const handleEdits=(e)=>{
+     setSearch(e.target.value)
+  }
+  const [searched, setSearched] = useState('')
+  const handleSearch=()=>{
+    if(search==" "){
+      return alert('please type in the field')
+    }
+    (async()=>{
+      const searchResult = await axios.get(`api/product/${search}`,{
+         "Content-type":"application/json"
+       })
+      
+       setState(searchResult)
+     })()
+  }
+const [filtered, setFiltered] = useState('')
+const handleFilter=()=>{
+  (async()=>{
+    const filter = await axios.get('/api/product/filter',{
+      'Content-type':'application/json'
+    })
+     setState(filter)
+  })()
+}
+
+const handleSort=()=>{
+  (async()=>{
+    const sort = await axios.get('/api/product/sort',{
+      'Content-type':'application/json'
+    })
+    setState(sort)
+  })()
+}
+
+
+const [priceRange, setPriceRange] = useState({
+  min:0,
+  max:'',
+  category:'',
+})
+
+const handleRange=(e)=>{
+  const {name,value}=e.target
+setPriceRange((prev)=>{
+return{
+  ...prev,
+  [name]:value
+}
+})
+
+
+}
+
+const handlePriceRange=()=>{
+  (async()=>{
+    const range=await axios.get(`/api/product/aggregate/${priceRange.category}/${priceRange.min}-${priceRange.max}`)
+ setState(range)
+  })()
+}
+
   return (
     <div>
-      <h1>The Product List</h1>
+      <h1 style={{textAlign:'center',color:'white'}}>The Product List</h1>
       <div>
-        <button>
-          <Link to="/add" onClick={clearAddData}>ADD</Link>
+        <button className={style.add}>
+          <Link to="/add" onClick={clearAddData} >ADD PRODUCT</Link>
         </button>
+        
       </div>
+      <div className={style.textCenter}>
+       <div className={style.searchContainer}>
+       <input className={style.input} type="text" name="search" value={search} onChange={handleEdits} />
+        <button className={style.searchBtn} onClick={handleSearch}>Search</button>
+       </div>
+      </div>
+      <button className={style.filter} onClick={handleFilter}>
+        FILTER
+        </button>
+        <button className={style.sort} onClick={handleSort}>
+        SORT
+        </button>
       <div>
+        <div className={style.priceRange}>
+          <h5>Price Range Sort</h5>
+          <input type="number" name="min" placeholder='enter min price' value={priceRange.min} onChange={handleRange}/>to
+          <input type="number" name="max" placeholder='enter max price' value={priceRange.max} onChange={handleRange}/> in
+          <input type="text" name="category" placeholder='enter category' value={priceRange.category} onChange={handleRange}/>
+        <button onClick={handlePriceRange}>Submit</button>
+        </div>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -62,7 +146,7 @@ const Home = () => {
             {state
               ? state.data.map((item, i) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <td>{i+1}</td>
                       <td>{item.SKU}</td>
                       <td>{item.category}</td>
@@ -71,12 +155,14 @@ const Home = () => {
                       <td>{item.price}</td>
                       <td>{item.availableQty}</td>
                       <td>
-                        <button onClick={() => handleEdit(i)}>
-                          <Link to="/add">EDIT</Link>{" "}
+                      <Link to="/add" >
+                        <button className={style.edit} onClick={() => handleEdit(i)}>
+                         EDIT
                         </button>
+                        </Link>
                       </td>
                       <td>
-                        <button onClick={()=>handleDelete(i)}>DELETE</button>
+                        <button className={style.delete} onClick={()=>handleDelete(i)}>DELETE</button>
                       </td>
                     </tr>
                   );

@@ -21,3 +21,7 @@ export const deleteProduct=(product)=>{
 export const clearAddProduct = (product)=>{
     return {type:'CLEAR_PRODUCT',product}
 }
+
+export const searchProducts = (product)=>{
+    return {type:'SEARCH_PRODUCT',product}
+}

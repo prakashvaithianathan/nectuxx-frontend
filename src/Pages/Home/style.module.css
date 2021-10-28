@@ -1,9 +1,127 @@
 table, td, th {
-    border: 1px solid rgb(12, 218, 74);
+    border: 1px solid rgba(12, 194, 218, 0.589);
     color: white;
+    text-align: center;
+    padding: 10px ;
+    background-color: black;
   }
   
   table {
     width: 100%;
     border-collapse: collapse;
   }
+  th{
+    color: rgb(205, 45, 245);
+  }
+a{
+  text-decoration: none;
+  color: inherit;
+}
+  .edit{
+    border: none;
+    outline: none;
+    padding: 10px;
+   background-color: rgb(0, 225, 255) !important;
+   transition: transform .2s ease;
+  }
+
+  .edit:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+ .delete{
+   background-color: red;
+  padding: 10px; 
+  color: white;
+  transition: transform .2s ease;
+ }
+
+ .delete:hover{
+   cursor: pointer;
+   transform: scale(1.1);
+ }
+
+ .add{
+   border: none;
+   outline: none;
+   padding: 10px;
+   background-color: green;
+   color: white;
+   transition: transform .2s ease;
+ float: right;
+ margin: 10px;
+ }
+
+ .add:hover{
+  cursor: pointer;
+   transform: scale(1.1);
+ }
+
+ .textCenter{
+   display: flex;
+   justify-content: center;
+   margin: 20px auto;
+  
+ }
+
+ .input{
+   border: none;
+   outline: none;
+ padding: 10px;
+ background-color: none;
+ border-radius: 20px 0 0 20px;
+ width: 300px;
+ }
+
+ .searchBtn{
+   border: none;
+   outline: none;
+   background-color: white;
+   padding: 10px;
+ border-radius: 0 20px 20px 0;
+ }
+
+ .searchContainer{
+   background-color: white;
+   border-radius: 20px;
+ }
+
+ .filter{
+  border: none;
+  outline: none;
+  padding: 10px;
+  background-color: rgb(20, 38, 202);
+  color: white;
+  transition: transform .2s ease;
+float: right;
+margin: 10px;
+}
+
+.sort{
+  border: none;
+  outline: none;
+  padding: 10px;
+  background-color: rgb(20, 202, 178);
+  color: rgb(0, 0, 0);
+  transition: transform .2s ease;
+float: right;
+margin: 10px;
+}
+
+.sort:hover{
+  cursor: pointer;
+   transform: scale(1.1);
+ }
+
+.filter:hover{
+  cursor: pointer;
+   transform: scale(1.1);
+ }
+
+ .priceRange{
+   color: white;
+   background-color: rgba(128, 128, 128, 0.39);
+   position: absolute;
+   padding: 5px;
+   border-radius: 10px;
+ }

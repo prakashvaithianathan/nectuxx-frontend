@@ -45,6 +45,8 @@ export const productReducer = (state = initialState, action) => {
           { "Content-type": "application/json" }
         );
       })();
+      break;
+     
       case "CLEAR_PRODUCT":
           return{
               product:''

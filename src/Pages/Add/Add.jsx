@@ -71,6 +71,7 @@ const Add = () => {
 
   return (
     <div className={style.bgColor}>
+      <Link to='/' style={{background:'orange',padding:'10px'}}>BACK</Link>
       <div className={style.mainForm}>
         <h1>Add Products</h1>
         <div>
