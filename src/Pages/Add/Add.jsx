@@ -4,7 +4,7 @@ import style from "./style.module.css";
 import axios from "../../axios";
 import { useSelector, useDispatch } from "react-redux";
 import { addProduct, updateProduct } from "../../store/actions/product";
-import { Link } from "react-router-dom";
+import { Link,Redirect } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
 const Add = () => {
@@ -40,13 +40,14 @@ const Add = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     if (
-      value.SKU === " " ||
-      value.availableQty === " " ||
-      value.category === " " ||
-      value.name===" " ||
-      value.price===" " ||
-      value.description === " "
+      value.SKU === '' ||
+value.availableQty === '' ||
+value.category === '' ||
+value.name==='' ||
+value.price==='' ||
+value.description === ''
     ) {
+      console.log('asf');
       return alert("fill all the input field");
     }
     dispatch(updateProduct(value));
@@ -55,13 +56,14 @@ const Add = () => {
 
   const handleAdd = (e) => {
     if (
-      value.SKU === " " ||
-      value.availableQty === " " ||
-      value.category === " " ||
-      value.name===" " ||
-      value.price===" " ||
-      value.description === " "
+      value.SKU === '' ||
+value.availableQty === '' ||
+value.category === '' ||
+value.name==='' ||
+value.price==='' ||
+value.description === ''
     ) {
+      console.log('asf');
       return alert("fill all the input field");
     }
     e.preventDefault();
@@ -122,27 +124,28 @@ const Add = () => {
             value={value.availableQty}
           />
         </div>
-        
+        {
+          send?<Redirect to='/'></Redirect>:null
+        }
         {data ? (
-          <Link to="/">
-            {" "}
+          
+         
             <input
               type="submit"
               value="UPDATE PRODUCT"
               name="update"
               onClick={handleUpdate}
             />
-          </Link>
+          
         ) : (
-          <Link to="/">
-            {" "}
+          
             <input
               type="submit"
               value="ADD PRODUCT"
               name="add"
               onClick={handleAdd}
             />
-          </Link>
+          
          
         )}
       </div>
